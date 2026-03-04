@@ -12,6 +12,7 @@ db.serialize(() => {
       email TEXT UNIQUE NOT NULL,
       password_hash TEXT NOT NULL,
       role TEXT NOT NULL DEFAULT 'user',
+      plan TEXT NOT NULL DEFAULT 'bronze',
       created_at TEXT NOT NULL DEFAULT (datetime('now'))
     )
   `);
@@ -26,9 +27,41 @@ db.serialize(() => {
       assigned_to INTEGER,
       created_at TEXT NOT NULL DEFAULT (datetime('now')),
       updated_at TEXT NOT NULL DEFAULT (datetime('now')),
+      priority TEXT NOT NULL DEFAULT 'media', -- baixa, media, alta
+      category TEXT NOT NULL DEFAULT 'suporte', -- suporte, financeiro, bug, sugestao
+      is_read INTEGER NOT NULL DEFAULT 1, -- 0 para novos chamados automáticos
+      meta_plan TEXT, -- guarda o plano da venda automática
+      platform TEXT, -- IOS ou ANDROID
+      payment_method TEXT, -- Kirvano, etc
+      customer_name TEXT,
+      shop_name TEXT,
+      customer_email TEXT,
       FOREIGN KEY(created_by) REFERENCES users(id)
     )
   `);
+
+  // Migração segura para bases existentes
+  const migrations = [
+    "ALTER TABLE tickets ADD COLUMN priority TEXT NOT NULL DEFAULT 'media'",
+    "ALTER TABLE tickets ADD COLUMN category TEXT NOT NULL DEFAULT 'suporte'",
+    "ALTER TABLE tickets ADD COLUMN is_read INTEGER NOT NULL DEFAULT 1",
+    "ALTER TABLE tickets ADD COLUMN meta_plan TEXT",
+    "ALTER TABLE tickets ADD COLUMN platform TEXT",
+    "ALTER TABLE tickets ADD COLUMN payment_method TEXT",
+    "ALTER TABLE tickets ADD COLUMN customer_name TEXT",
+    "ALTER TABLE tickets ADD COLUMN shop_name TEXT",
+    "ALTER TABLE tickets ADD COLUMN customer_email TEXT",
+  ];
+
+  migrations.forEach(cmd => {
+    db.run(cmd, (err) => {
+      if (err) {
+        if (!err.message.includes("duplicate column name") && !err.message.includes("already exists")) {
+          // Ignora se já existir
+        }
+      }
+    });
+  });
 
   db.run(`
     CREATE TABLE IF NOT EXISTS comments (
@@ -36,11 +69,66 @@ db.serialize(() => {
       ticket_id INTEGER NOT NULL,
       user_id INTEGER NOT NULL,
       message TEXT NOT NULL,
+      attachment TEXT,
       created_at TEXT NOT NULL DEFAULT (datetime('now')),
       FOREIGN KEY(ticket_id) REFERENCES tickets(id),
       FOREIGN KEY(user_id) REFERENCES users(id)
     )
   `);
+
+  // Seed Admin & Demo User
+  const bcrypt = require("bcrypt");
+
+  // Admin
+  db.get("SELECT * FROM users WHERE email = 'admin@ticketflow.com'", async (err, row) => {
+    if (!row) {
+      const hash = await bcrypt.hash("123456", 10);
+      db.run(
+        "INSERT INTO users (name, email, password_hash, role, plan) VALUES (?, ?, ?, ?, ?)",
+        ["Admin TicketFlow", "admin@ticketflow.com", hash, "admin", "ruby"]
+      );
+      console.log("Admin seed criado: ruby");
+    }
+  });
+
+  // Demo User
+  db.get("SELECT * FROM users WHERE email = 'user@ticketflow.com'", async (err, row) => {
+    if (!row) {
+      const hash = await bcrypt.hash("123456", 10);
+      db.run(
+        "INSERT INTO users (name, email, password_hash, role, plan) VALUES (?, ?, ?, ?, ?)",
+        ["João Usuário", "user@ticketflow.com", hash, "user", "silver"]
+      );
+      console.log("User seed criado: silver");
+    }
+  });
+
+  // System Bot
+  db.get("SELECT * FROM users WHERE email = 'bot@ticketflow.com'", async (err, row) => {
+    if (!row) {
+      const hash = await bcrypt.hash("bot_hidden_password", 10);
+      db.run(
+        "INSERT INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?)",
+        ["Assistente Virtual", "bot@ticketflow.com", hash, "admin"]
+      );
+      console.log("Bot seed criado!");
+    }
+  });
+
+  // Demo Tickets
+  db.get("SELECT COUNT(*) as count FROM tickets", (err, row) => {
+    if (row && row.count === 0) {
+      db.run(`
+        INSERT INTO tickets (title, description, status, created_by, priority, category)
+        VALUES 
+        ('Servidor Lento', 'O sistema está demorando muito para carregar as páginas.', 'aberto', 2, 'alta', 'suporte'),
+        ('Bug no Login', 'Botão de login não funciona no Firefox.', 'em_andamento', 2, 'alta', 'bug'),
+        ('Sugestão: Modo Escuro', 'Seria legal ter um tema escuro no dashboard.', 'aberto', 2, 'baixa', 'sugestao'),
+        ('Erro no boleto', 'Não consigo gerar a segunda via do boleto.', 'resolvido', 2, 'media', 'financeiro')
+      `);
+      console.log("Chamados demo criados!");
+    }
+  });
 });
 
 module.exports = db;

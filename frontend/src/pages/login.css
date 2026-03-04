@@ -1,0 +1,133 @@
+.login-wrap {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at top left, #1e293b, #0f172a);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.login-container {
+    background: rgba(255, 255, 255, 0.95);
+    width: 100%;
+    max-width: 420px;
+    padding: 3rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    animation: loginIn 0.5s ease-out;
+}
+
+@keyframes loginIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.login-header h1 {
+    font-size: 2.2rem;
+    color: #2563eb;
+    margin: 0 0 0.5rem 0;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.login-header p {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin: 0 0 2.5rem 0;
+    line-height: 1.5;
+}
+
+.login-form {
+    display: grid;
+    gap: 1.25rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 0.5rem;
+}
+
+.input-group label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #475569;
+    padding-left: 0.2rem;
+}
+
+.input-group input {
+    padding: 0.9rem 1.1rem;
+    border-radius: 0.75rem;
+    border: 1px solid #e2e8f0;
+    outline: none;
+    font-size: 1rem;
+    transition: all 0.2s;
+    background: #f8fafc;
+}
+
+.input-group input:focus {
+    border-color: #2563eb;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.btn-login {
+    padding: 0.9rem;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 1rem;
+}
+
+.btn-login:hover:not(:disabled) {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-login:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.login-footer {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #f1f5f9;
+}
+
+.btn-switch {
+    background: none;
+    border: none;
+    color: #64748b;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.btn-switch span {
+    color: #2563eb;
+    font-weight: 700;
+    margin-left: 4px;
+}
+
+.btn-switch:hover span {
+    text-decoration: underline;
+}

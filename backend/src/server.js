@@ -5,10 +5,17 @@ require("dotenv").config();
 const authRoutes = require("./routes/auth.routes");
 const ticketRoutes = require("./routes/tickets.routes");
 
+const path = require("path");
+const fs = require("fs");
+
+const uploadsDir = path.join(__dirname, "../uploads");
+if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir);
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use("/uploads", express.static(uploadsDir));
 
 app.get("/", (req, res) => res.json({ ok: true, name: "HelpDesk API" }));
 

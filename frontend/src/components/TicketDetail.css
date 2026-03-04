@@ -1,0 +1,560 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background-color: #fff;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    border-radius: 12px;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-title-area {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.modal-title-area h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #999;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.modal-body {
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.ticket-info {
+    background-color: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 1.5rem;
+}
+
+.info-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 0;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.info-label {
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #94a3b8;
+    letter-spacing: 0.08em;
+}
+
+.info-value {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #334155;
+    background: #ffffff;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid #f1f5f9;
+}
+
+.field-emoji {
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.description-box {
+    background: #fff;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    min-height: 100px;
+}
+
+.actions-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.admin-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.admin-actions select {
+    padding: 0.4rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.user-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.comments-section h3 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.comments-list {
+    background: #f4f4f4;
+    padding: 1rem;
+    border-radius: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.comment-item {
+    background: #fff;
+    padding: 0.75rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    max-width: 80%;
+    align-self: flex-start;
+}
+
+.comment-item.mine {
+    align-self: flex-end;
+    background-color: #e3f2fd;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+    font-size: 0.8rem;
+}
+
+.btn-attach {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.8rem;
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-attach:hover {
+    background: #e2e8f0;
+}
+
+.comment-attachment {
+    margin-top: 0.8rem;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid #eee;
+    background: #f8fafc;
+}
+
+.comment-attachment img {
+    max-width: 100%;
+    max-height: 250px;
+    display: block;
+    object-fit: contain;
+    transition: transform 0.2s;
+}
+
+.comment-attachment img:hover {
+    transform: scale(1.02);
+}
+
+.comment-form {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.comment-form .btn-attach:hover {
+    background-color: #f1f5f9;
+}
+
+.comment-input-wrap {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.comment-char-counter {
+    position: absolute;
+    right: 12px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #94a3b8;
+}
+
+.comment-form input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    padding-right: 70px;
+    /* Espaço para o contador */
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.comment-form button {
+    padding: 0 1.5rem;
+    background-color: #db2777;
+    /* Gavision Pink */
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.comment-form button:hover {
+    background-color: #be185d;
+}
+
+.comment-form button:disabled {
+    background-color: #cbd5e1;
+    cursor: not-allowed;
+}
+
+.edit-input-title {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    border: 2px solid #f1f5f9;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.edit-input-title:focus {
+    border-color: #db2777;
+    background: #fff;
+}
+
+.edit-input-desc {
+    width: 100%;
+    min-height: 120px;
+    padding: 0.8rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 1rem;
+    line-height: 1.6;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.edit-input-desc:focus {
+    border-color: #db2777;
+    box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.1);
+}
+
+.license-edit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.edit-field-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.edit-field-full {
+    grid-column: 1 / -1;
+}
+
+.edit-field-item label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+.edit-field-item input,
+.edit-field-item textarea {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    font-size: 0.95rem;
+    color: #1e293b;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.edit-field-item textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.edit-field-item input:focus,
+.edit-field-item textarea:focus {
+    border-color: #db2777;
+    /* Gavision Pink */
+    box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.1);
+}
+
+.edit-form-row {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.edit-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    flex: 1;
+    min-width: 150px;
+}
+
+.edit-field-group label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+}
+
+.edit-field-group select {
+    padding: 0.7rem;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    background: #fff;
+    font-size: 0.95rem;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.edit-field-group select:focus {
+    border-color: #db2777;
+    /* Gavision Pink */
+}
+
+.btn-edit {
+    background: #fbbf24;
+    /* Gold */
+    color: #92400e;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-save {
+    background: #059669;
+    /* Save Green */
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.description-box.editing {
+    border-color: #2563eb;
+    padding: 0;
+}
+
+.actions-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.btn-outline-sm {
+    background: none;
+    border: 1px solid #cbd5e1;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.btn-outline-sm:hover {
+    background: #f1f5f9;
+}
+
+.modal-status,
+.modal-error {
+    text-align: center;
+    padding: 2rem;
+    font-weight: 600;
+}
+
+.modal-error {
+    color: #dc3545;
+}
+
+.btn-close-modal {
+    display: block;
+    margin: 0 auto;
+    padding: 0.5rem 2rem;
+    background: #0f172a;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* License Fields Grid */
+.license-fields-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    padding: 0.5rem 0;
+}
+
+.license-field-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.license-field-full {
+    grid-column: 1 / -1;
+    border-top: 1px dashed #e2e8f0;
+    padding-top: 1rem;
+    margin-top: 0.5rem;
+}
+
+.field-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #64748b;
+    letter-spacing: 0.04em;
+}
+
+.field-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #ffffff;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s;
+}
+
+.field-value:hover {
+    border-color: #cbd5e1;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.field-plan-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.platform-ios {
+    color: #475569;
+    background: #f8fafc;
+}
+
+.platform-android {
+    color: #0369a1;
+    /* Azul Android suave */
+    background: #f0f9ff;
+}
+
+.field-desc-text {
+    font-size: 0.95rem;
+    color: #475569;
+    font-weight: 400;
+    margin-top: 0.5rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+    .license-fields-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .actions-row {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+}
