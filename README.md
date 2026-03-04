@@ -1,97 +1,84 @@
-# 🎫 TicketFlow — Sistema de HelpDesk Profissional
+# 🎫 TicketFlow — Gavision HelpDesk
 
-Sistema completo para gerenciamento de chamados técnicos, desenvolvido com React no Frontend e Express/SQLite no Backend.
-
-## 🚀 Funcionalidades
-
-### Usuário (Cliente)
-- 📝 **Criar Chamados**: Abertura de novos tickets com título e descrição.
-- 📋 **Meus Chamados**: Listagem e filtros por status ou busca textual.
-- 💬 **Interação**: Sistema de comentários (histórico) dentro do ticket.
-- ✏️ **Excluir/Editar**: Somente para tickets próprios e ainda em estado 'aberto'.
-
-### Admin (Equipe Técnica)
-- 🏢 **Painel Geral**: Visualização de todos os chamados de todos os usuários.
-- 🔄 **Gestão de Status**: Alteração de status (Aberto, Em andamento, Resolvido).
-- 💬 **Intervenção**: Pode comentar em qualquer chamado para suporte.
-- 🗑️ **Controle Total**: Pode editar ou excluir qualquer ticket se necessário.
+O **TicketFlow** é um ecossistema de HelpDesk profissional e automatizado, desenvolvido sob medida para a **Gavision Solutions**. Ele combina a agilidade de um sistema de tickets tradicional com a inteligência de uma integração de vendas automática, permitindo gerenciar licenças (Android/iOS) e suporte técnico de forma centralizada.
 
 ---
 
-## 🛠️ Tecnologias
+## ✨ Funcionalidades de Elite
 
-- **Frontend**: [React](https://reactjs.org/) + [Vite](https://vitejs.dev/) + [Axios](https://axios-http.com/)
-- **Backend**: [Node.js](https://nodejs.org/) + [Express](https://expressjs.com/)
-- **Banco de Dados**: [SQLite](https://sqlite.org/) (leve e eficiente para demos)
-- **Segurança**: JWT (JSON Web Token) e Bcrypt para senhas.
+### 🤖 Integração Externa (Webhook)
+- **Vendas Automáticas**: Integrado via webhook (ex: Kirvano) para criar chamados estruturados assim que uma nova licença é vendida.
+- **Dados Estruturados**: Captura automática de **Plano** (Ruby, Gold, Silver, Bronze), **Plataforma** (Android/iOS), **Loja**, **Cliente** e **Pagamento**.
+
+### 🏢 Gerenciamento Administrativo (Admin)
+- **Painel de Controle**: Dashboard com estatísticas em tempo real (Total, Abertos, Em Andamento, Finalizados).
+- **Triagem Inteligente**: Transferência de chamados entre departamentos (Suporte, Financeiro, Logomarca, Customização) com **desvinculação automática** de atendente para novos picks.
+- **Atendimento Personalizado**: Ferramenta de "Atribuir a mim" para garantir que cada chamado tenha um responsável claro.
+- **Edição Avançada**: Controle total sobre os dados da licença e notas internas.
+
+### 👤 Experiência do Usuário (Cliente)
+- **Abertura Simplificada**: Interface intuitiva para reporte de problemas e pedidos de logomarca/customização.
+- **Histórico Completo**: Chat em tempo real para troca de mensagens e envio de anexos.
 
 ---
 
-## 📦 Como rodar o projeto
+## 🛡️ Segurança e Robustez
 
-### 1. Clonar o repositório
+- **Filtro Anti-Abuso**: Limite de caracteres em títulos (100) e descrições (2000) com contadores visuais no frontend.
+- **Gestão de Anexos**: Upload de imagens e PDFs limitado a **5MB** para preservar a saúde do servidor.
+- **Permissões Granulares**: Segurança baseada em JWT, garantindo que usuários vejam apenas o que lhes pertence, enquanto admins possuem visão 360º.
+- **Timezone**: Datas e horários sincronizados corretamente com o horário de Brasília (UTC-3).
+
+---
+
+## 🛠️ Stack Tecnológica
+
+- **Frontend**: [React.js](https://reactjs.org/) + [Vite](https://vitejs.dev/) + [Vanilla CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) (Foco em performance e design customizado).
+- **Backend**: [Node.js](https://nodejs.org/) + [Express](https://expressjs.com/).
+- **Banco de Dados**: [SQLite](https://sqlite.org/) (Persistência local rápida com suporte a migrações).
+- **Segurança**: JWT (JSON Web Token) e Bcrypt.
+
+---
+
+## 🚀 Como Executar
+
+### 1. Clonar e Instalar
 ```bash
-git clone https://github.com/seu-usuario/helpdesk.git
+git clone https://github.com/Kaiomeireles/helpdesk.git
 cd helpdesk
 ```
 
-### 2. Configurar o Backend
+### 2. Backend
 ```bash
 cd backend
 npm install
-```
-Crie um arquivo `.env` na pasta `backend`:
-```env
-JWT_SECRET=sua_chave_secreta_aquí
-PORT=3333
-```
-Inicie o servidor:
-```bash
+# Crie um arquivo .env com JWT_SECRET e PORT
 npm run dev
 ```
-> O sistema possui um **Admin padrão** e um **Usuário Demo**:
-> - **Admin:** admin@ticketflow.com / 123456
-> - **Usuário:** user@ticketflow.com / 123456
+
+### 3. Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
 ---
 
-## 🛡️ Regras de Negócio & Segurança
+## 🧪 Contas de Teste (Padrão)
 
-Para garantir a integridade dos dados, o sistema implementa:
-1. **Poder Administrativo**: Admins visualizam todos os tickets e podem alterar status de qualquer uno.
-2. **Privacidade**: Usuários comuns só enxergam seus próprios chamados (bloqueio via Backend).
-3. **Edição Restrita**: Um ticket só pode ser editado pelo dono se o status for **Aberto**. Uma vez "Em andamento" ou "Finalizado", apenas Admins podem intervir.
-4. **Histórico Imutável**: Comentários não podem ser apagados, servindo como auditoria.
+- **Administrador**: `admin@ticketflow.com` / `123456`
+- **Usuário Demo**: `user@ticketflow.com` / `123456`
 
 ---
 
-## 📋 Checklist de Entrega (Perfect Checklist)
+## 📸 Identidade Visual (Gavision Style)
 
-- [x] **Status Padronizados**: UI amigável (Aberto, Em andamento, Finalizado).
-- [x] **Badges Inteligentes**: Cores que mudam conforme o estado do ticket.
-- [x] **Segurança Real**: Permissões validadas no JWT e no Banco.
-- [x] **CRUD Completo**: Criar, Listar, Ver Detalhes, Editar, Excluir e Alterar Status.
-- [x] **Sessão Persistente**: Validação com `/auth/me` para evitar bugs de recarregamento.
-- [x] **UX Premium**: Loading states, empty states e feedbacks visuais em Toasts.
-- [x] **Service Pattern**: API desacoplada em serviços reutilizáveis.
-- [x] **Seeds Demo**: Usuários pré-configurados para teste rápido.
+O sistema utiliza a paleta de cores institucional da **Gavision Solutions**, com foco no **Rosa Gavision (#db2777)**, tons de Slate e tipografia moderna para uma experiência de software SaaS premium.
 
 ---
 
-## 📸 Screenshots (Mockup)
+## 👤 Autor
 
-| Lista de Tickets | Detalhe & Comentários |
-| :---: | :---: |
-| ![Dashboard](https://via.placeholder.com/400x250?text=Dashboard+TicketFlow) | ![Detalhe](https://via.placeholder.com/400x250?text=Modal+Detalhes) |
-
----
-
-## 📝 Roadmap Futuro
-- [ ] Upload de imagens (anexos) nos tickets.
-- [ ] Notificações em tempo real (WebSockets).
-- [ ] Exportação de relatórios em PDF para Admins.
-
----
-
-## 📄 Licença
-Este projeto está sob a licença MIT.
+**Kaio Meireles**  
+[GitHub](https://github.com/Kaiomeireles) | [LinkedIn](https://github.com/Kaiomeireles)
